@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 커스텀 스타일 추가 */
+@media (max-width: 768px) {
+  .responsive-screen {
+    width: 100%;
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1280px) {
+  .responsive-screen {
+    width: 100%;
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1281px) {
+  .responsive-screen {
+    width: 100%;
+    max-width: 1536px;
+  }
+}
+
+/* 최소 너비를 360px로 설정 */
+.responsive-screen {
+  min-width: 360px;
+}
+
+/* 커스텀 스타일 추가 */
+@media (max-width: 768px) {
+  .responsive-contents {
+    width: 100%;
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1280px) {
+  .responsive-contents {
+    width: 100%;
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1281px) {
+  .responsive-contents {
+    width: 100%;
+    max-width: 1280px;
+  }
+}
+
+/* 최소 너비를 360px로 설정 */
+.responsive-contents {
+  min-width: 360px;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
