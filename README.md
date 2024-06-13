@@ -21,3 +21,16 @@
    ```sh
    npm dev
    ```
+
+4. .env 파일 생성
+
+- `../.env.development` 최상단에서 만들어야합니다
+
+  ```sh
+  touch .env.development
+  ```
+
+- 아래 내용이 들어가야합니다
+  ```sh
+  KAKAO_JS_KEY=key내용
+  ```
