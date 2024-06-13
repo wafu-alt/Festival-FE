@@ -4,13 +4,16 @@ import { ISsrData, ISsrStateMsg } from '.';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import KaKaoMap from '../components/KakaoMap/KakaoMap';
 
 interface IEventDetailProps extends ISsrStateMsg {
   event?: ISsrData;
 }
 
 export default function EventDetail(props: IEventDetailProps) {
+  const router = useRouter();
   const { success, message, event } = props;
+  const address = '서울특별시 종로구 사직로 161';
 
   const content = `
   <p>안녕하세요!</p>
@@ -31,6 +34,7 @@ export default function EventDetail(props: IEventDetailProps) {
   const handleScrollToTop = useCallback(() => {
     router.push('/');
   }, [router]);
+
   return (
     <>
       {event ? (
@@ -44,7 +48,7 @@ export default function EventDetail(props: IEventDetailProps) {
           </li>
           <li>{event.title}jdklfjaklsjdfkljlkasdfs dsfj kldsjaiofejlka fjasiojefijaflkj fjdslkavjoisaj</li>
           <li>2025.05.21 ~ 2025.05.31</li>
-          <li>서울특별시 종로구 사직로 161</li>
+          <li>{address}</li>
           <li>
             <Link href={`https://korean.visitkorea.or.kr/kfes/list/wntyFstvlList.do`}>
               <a>url</a>
@@ -56,6 +60,9 @@ export default function EventDetail(props: IEventDetailProps) {
       ) : (
         <div className="text-center text-5xl p-7 rounded-xl border-solid border-2">축제 일정이 없습니다.</div>
       )}
+      <div className="my-5 p-7 rounded-xl border-solid border-2">
+        <KaKaoMap address={address} />
+      </div>
       <div className="my-5 p-7 rounded-xl border-solid border-2">
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
