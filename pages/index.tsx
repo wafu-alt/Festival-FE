@@ -1,21 +1,27 @@
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 /** 이벤트 데이터 리스트 */
 export interface ISsrData {
-  /** 앨범분류 @example 1 */
-  albumId: number;
-  /** 아이디 @example 15 */
+  /** 앨범분류 @example 556 */
   id: number;
-  /** 제목 @example 'harum dicta similique quis dolore earum ex qui' */
+  /** 아이디 @example 2755016 */
+  contentId: number;
+  /** 제목 @example '강주해바라기 축제' */
   title: string;
-  /** 이미지주소 @example 'https://via.placeholder.com/600/f9cee5' */
-  url: string;
-  /** 작은 이미지주소 @example 'https://via.placeholder.com/150/f9cee5' */
-  thumbnailUrl: string;
+  /** 이미지주소 @example 'http://tong.visitkorea.or.kr/cms/resource/88/3309588_image2_1.jpg' */
+  firstImage: string;
+  /** 시작일 @example '2024-06-26' */
+  startDate: string;
+  /** 마감일 @example '2024-07-14' */
+  endDate: string;
+  /** 지역 @example '강주해바라기마을' */
+  venue: string;
+  /** 진행 중 상태 @example 'BEING' | 'UPCOMING' | 'ENDED' */
+  status: 'BEING' | 'UPCOMING' | 'ENDED';
 }
 
 /** SSR에서의 상대메세지를 받음  */
@@ -37,8 +43,10 @@ export default function Home(props: IHomeProps) {
   // props 파싱
   const { success, message, events } = props;
   const [data, setData] = useState(events);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false); // New state for loading
+  // 이미지 src를 검증하기 위한 정규식
+  const urlRegex = useMemo(() => {
+    return new RegExp('^(http://tong.visitkorea.or.kr/cms/)([a-zA-Z0-9-_./]+)$');
+  }, []);
 
   // SSR에서 정보를 불러오기 실패 했을때 경고문과 새로고침 실행
   useEffect(() => {
@@ -47,6 +55,14 @@ export default function Home(props: IHomeProps) {
       window.location.reload();
     }
   }, [success, message]);
+
+  /** 이미지 src를 검증하는 함수 */
+  const isURL = useCallback(
+    (string: string) => {
+      return urlRegex.test(string);
+    },
+    [urlRegex]
+  );
 
   /** 데이터 로딩 함수 */
   const loadMoreData = useCallback(async () => {
@@ -59,12 +75,13 @@ export default function Home(props: IHomeProps) {
 
     try {
       // 데이터 호출
-      const res = await fetch(`https://jsonplaceholder.typicode.com/albums/${page + 1}/photos`);
-
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACK_HOST}${process.env.NEXT_PUBLIC_BACK_HOST_LOCATION}/list?page=${page + 1}`
+      );
       const moreData = await res.json();
 
-      // 기존 데이터 세팅 변경
-      setData((currentData) => [...currentData, ...moreData]);
+      // 기존 데이터 세팅 변경 moreData의 festivals만 선택해서 사용
+      setData((currentData) => [...currentData, ...moreData.festivals]);
 
       // 페이지 변경
       setPage((currentPage) => currentPage + 1);
@@ -94,26 +111,25 @@ export default function Home(props: IHomeProps) {
           <>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
               {data.map((data, index) => (
-                <li
-                  key={`${index}.${data.albumId}-${data.id}-${data.url}`}
-                  className="border rounded-lg overflow-hidden p-4 "
-                >
-                  <Link href={`/${data.id}`}>
+                <li key={`${index}-${data.contentId}`} className="border rounded-lg overflow-hidden p-4 ">
+                  <Link href={`/${data.contentId}`}>
                     <a>
                       <div className="relative w-full h-32 flex items-center justify-center">
-                        {data.url ? (
-                          <Image src={data.url} alt={data.title} layout="fill" objectFit="contain" priority />
+                        {isURL(data.firstImage) ? (
+                          <Image src={data.firstImage} alt={data.title} layout="fill" objectFit="contain" priority />
                         ) : (
-                          <p className="">none image</p>
+                          <p className="">None Image</p>
                         )}
                       </div>
                       <div className="mt-2">
                         {/* 축제 제목 */}
                         <h2 className="text-lg font-semibold">{data.title}</h2>
                         {/* 축제 기간 */}
-                        <p className="text-sm text-gray-600">{`2030.05.20 ~ 2030.05.25`}</p>
+                        <p className="text-sm text-gray-600">
+                          {data.startDate} ~ {data.endDate}
+                        </p>
                         {/* 축제 주소 */}
-                        <p className="text-sm text-gray-600">{'서울특별시 용산구'}</p>
+                        <p className="text-sm text-gray-600">{data.venue}</p>
                       </div>
                     </a>
                   </Link>
@@ -141,15 +157,26 @@ export default function Home(props: IHomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<IHomeProps> = async (context) => {
-  const limit = 15; // 처음 가져오는 데이터 양
   const page = 1; // 첫 페이지 설정
+  const size = 15; // 한 페이지당 데이터 양
 
   try {
-    // https://jsonplaceholder.typicode.com/
-    const res = await fetch(`https://jsonplaceholder.typicode.com/albums/1/photos`);
+    // 데이터 호출
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACK_HOST}${process.env.NEXT_PUBLIC_BACK_HOST_LOCATION}/list?page=${page}&size=${size}`
+    );
+    // 데이터 파싱
     const data = await res.json();
-    // 데이터가 너무 많아서 앞의 데이터 15개만 선택함
-    const events = data.slice(0, 15);
+
+    /**
+     * data =  {
+     *            festivals : [...events],
+     *            first : boolean,
+     *            last : boolean
+     *         }
+     * 데이터 중 first: true,  last: false 데이터를 파싱하지 않는다
+     */
+    const events = data.festivals;
 
     return {
       props: {
