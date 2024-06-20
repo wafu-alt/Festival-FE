@@ -32,7 +32,9 @@
 
 - 아래 내용이 들어가야합니다
   ```sh
-  KAKAO_JS_KEY=key내용
+   KAKAO_JS_KEY=key내용
+   NEXT_PUBLIC_BACK_HOST=주소
+   NEXT_PUBLIC_BACK_HOST_LOCATION=위치
   ```
 
 5. 실행
