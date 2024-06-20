@@ -34,3 +34,8 @@
   ```sh
   KAKAO_JS_KEY=key내용
   ```
+
+5. 실행
+   ```sh
+   npm run dev
+   ```
