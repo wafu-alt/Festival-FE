@@ -42,7 +42,13 @@ interface IHomeProps extends ISsrStateMsg {
 export default function Home(props: IHomeProps) {
   // props 파싱
   const { success, message, events } = props;
+  // 세팅 되는 이벤트 데이터
   const [data, setData] = useState(events);
+  // 이벤트 데이터 로딩 페이지 기본:1 무한로딩 할때마다 +1
+  const [page, setPage] = useState<number>(1);
+  // 이벤트 데이터 로딩 상태
+  const [isLoading, setIsLoading] = useState(false);
+
   // 이미지 src를 검증하기 위한 정규식
   const urlRegex = useMemo(() => {
     return new RegExp('^(http://tong.visitkorea.or.kr/cms/)([a-zA-Z0-9-_./]+)$');
@@ -137,7 +143,7 @@ export default function Home(props: IHomeProps) {
               ))}
             </ul>
 
-            {/* Loading indicator */}
+            {/* 로딩 상태 UI */}
             {isLoading && (
               <div className="flex items-center justify-center my-8">
                 <span className="loading loading-spinner loading-lg"></span>
