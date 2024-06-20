@@ -19,6 +19,6 @@ module.exports = {
     ];
   },
   images: {
-    domains: ['via.placeholder.com'], // 가져올 이미지 도메인 (via.placeholder.com) 추가
+    domains: ['tong.visitkorea.or.kr'], // 가져올 이미지 도메인 추가
   },
 };
