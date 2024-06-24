@@ -116,6 +116,7 @@ export default function Home(props: IHomeProps) {
         {data && data.length > 0 ? (
           <>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
+              {/* 각 이벤트 맵핑 */}
               {data.map((data, index) => (
                 <li key={`${index}-${data.contentId}`} className="relative border rounded-lg  p-4 ">
                   {/* 진행중인 이벤트일 경우 뱃지 표시자 붙음 */}
@@ -123,8 +124,10 @@ export default function Home(props: IHomeProps) {
                     <span className="badge badge-secondary absolute top-2 right-2 h-8 z-50 text-white">진행중</span>
                   )}
 
+                  {/* 이벤트 정보 표시 */}
                   <Link href={`/${data.contentId}`}>
                     <a>
+                      {/* 축제 이미지 */}
                       <div className="relative w-full h-32 flex items-center justify-center">
                         {isURL(data.firstImage) ? (
                           <Image src={data.firstImage} alt={data.title} layout="fill" objectFit="contain" priority />
@@ -132,6 +135,7 @@ export default function Home(props: IHomeProps) {
                           <p className="">None Image</p>
                         )}
                       </div>
+                      {/* 축제 정보 */}
                       <div className="mt-2">
                         {/* 축제 제목 */}
                         <h2 className="text-lg font-semibold">{data.title}</h2>
