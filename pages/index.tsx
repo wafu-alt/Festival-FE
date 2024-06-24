@@ -117,7 +117,12 @@ export default function Home(props: IHomeProps) {
           <>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
               {data.map((data, index) => (
-                <li key={`${index}-${data.contentId}`} className="border rounded-lg overflow-hidden p-4 ">
+                <li key={`${index}-${data.contentId}`} className="relative border rounded-lg  p-4 ">
+                  {/* 진행중인 이벤트일 경우 뱃지 표시자 붙음 */}
+                  {data.status == 'BEING' && (
+                    <span className="badge badge-secondary absolute top-2 right-2 h-8 z-50 text-white">진행중</span>
+                  )}
+
                   <Link href={`/${data.contentId}`}>
                     <a>
                       <div className="relative w-full h-32 flex items-center justify-center">
