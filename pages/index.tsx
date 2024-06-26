@@ -175,6 +175,14 @@ export const getServerSideProps: GetServerSideProps<IHomeProps> = async (context
   const size = 15; // 한 페이지당 데이터 양
 
   try {
+    // 환경변수 가져오지 못할 때 에러 발생
+    if (!process.env.NEXT_PUBLIC_BACK_HOST) {
+      throw new Error('NEXT_PUBLIC_BACK_HOST 환경 변수가 설정되지 않았습니다.');
+    }
+    if (!process.env.NEXT_PUBLIC_BACK_HOST_LOCATION) {
+      throw new Error('NEXT_PUBLIC_BACK_HOST_LOCATION 환경 변수가 설정되지 않았습니다.');
+    }
+
     // 데이터 호출
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACK_HOST}${process.env.NEXT_PUBLIC_BACK_HOST_LOCATION}/list?page=${page}&size=${size}`
