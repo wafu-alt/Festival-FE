@@ -57,8 +57,7 @@ export default function Home(props: IHomeProps) {
   // SSR에서 정보를 불러오기 실패 했을때 경고문과 새로고침 실행
   useEffect(() => {
     if (!success) {
-      alert(`${message}에 의해 오류가 있습니다`);
-      window.location.reload();
+      alert(`${message}에 의해 오류가 있습니다.\n잠시후 다시 접속 부탁드립니다.`);
     }
   }, [success, message]);
 
