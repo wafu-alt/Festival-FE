@@ -143,7 +143,7 @@ export default function Home(props: IHomeProps) {
                           {data.startDate} ~ {data.endDate}
                         </p>
                         {/* 축제 주소 */}
-                        <p className="text-sm text-gray-600">{data.venue}</p>
+                        <p className="text-sm text-gray-600">{data.venue.split(' ').slice(0, 2).join(' ')}</p>
                       </div>
                     </a>
                   </Link>
