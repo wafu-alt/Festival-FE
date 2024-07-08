@@ -61,16 +61,18 @@ export default function KaKaoMap(props: IKaKaoMapProps) {
 
   return (
     <>
-      <Map
-        center={center} // 기본 지도 중심 위치 세팅
-        className="w-full h-[500px]"
-        level={3}
-        onCreate={setMap} // 재 랜더링해서 지도 중심 위치 세팅
-      >
-        {address && marker && <MapMarker position={marker.position}></MapMarker>}
-        <MapTypeControl />
-        <ZoomControl />
-      </Map>
+      {address && (
+        <Map
+          center={center} // 기본 지도 중심 위치 세팅
+          className="w-full h-[500px]"
+          level={3}
+          onCreate={setMap} // 재 랜더링해서 지도 중심 위치 세팅
+        >
+          {address && marker && <MapMarker position={marker.position}></MapMarker>}
+          <MapTypeControl />
+          <ZoomControl />
+        </Map>
+      )}
     </>
   );
 }
