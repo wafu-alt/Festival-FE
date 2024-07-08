@@ -1,6 +1,6 @@
 import { ReactNode, useCallback } from 'react';
 import Link from 'next/link';
-import TopArrow from '../../public/images/top_arrow.svg';
+import TopArrowSVG from '../../public/images/top_arrow.svg';
 import Head from 'next/head';
 
 /** 레이아웃 props 인터페이스 */
@@ -41,7 +41,7 @@ export default function Layout(props: ILayoutProps) {
         {/* 상단으로 이동 버튼 */}
         <div className="fixed right-[2%] bottom-[2%]">
           <button onClick={handleScrollToTop} className="btn btn-circle bg-transparent">
-            <TopArrow className="h-9 w-9" />
+            <TopArrowSVG className="h-9 w-9" />
           </button>
         </div>
 
