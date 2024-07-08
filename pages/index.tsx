@@ -18,7 +18,7 @@ export interface ISsrData {
   startDate: string;
   /** 마감일 @example '2024-07-14' */
   endDate: string;
-  /** 지역 @example '강주해바라기마을' */
+  /** 지역 @example '경상남도 함안군 강주4길 16 ' */
   venue: string;
   /** 진행 중 상태 @example 'BEING' | 'UPCOMING' | 'ENDED' */
   status: 'BEING' | 'UPCOMING' | 'ENDED';
