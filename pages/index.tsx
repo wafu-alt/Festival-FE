@@ -129,7 +129,13 @@ export default function Home(props: IHomeProps) {
                       {/* 축제 이미지 */}
                       <div className="relative w-full h-32 flex items-center justify-center">
                         {isURL(data.firstImage) ? (
-                          <Image src={data.firstImage} alt={data.title} layout="fill" objectFit="contain" priority />
+                          <Image
+                            src={data.firstImage}
+                            alt={data.title}
+                            layout="fill"
+                            objectFit="contain"
+                            loading="lazy"
+                          />
                         ) : (
                           <p className="">None Image</p>
                         )}
