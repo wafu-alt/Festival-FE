@@ -39,9 +39,9 @@ export default function Layout(props: ILayoutProps) {
         {/* 컨텐츠 메인 내용 */}
         <main className="flex-grow container mx-auto p-4 responsive-contents">{children}</main>
         {/* 상단으로 이동 버튼 */}
-        <div className="fixed right-[2%] bottom-[2%]">
-          <button onClick={handleScrollToTop} className="btn btn-circle bg-transparent">
-            <TopArrowSVG className="h-9 w-9" />
+        <div className="fixed right-[2%] bottom-[2%] z-[100]">
+          <button onClick={handleScrollToTop} className="btn btn-circle bg-transparent ">
+            <TopArrowSVG className="h-9 w-9 " />
           </button>
         </div>
 
