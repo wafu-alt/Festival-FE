@@ -6,22 +6,36 @@ import { useInView } from 'react-intersection-observer';
 
 /** 이벤트 데이터 리스트 */
 export interface ISsrData {
-  /** 앨범분류 @example 556 */
-  id: number;
-  /** 아이디 @example 2755016 */
-  contentId: number;
-  /** 제목 @example '강주해바라기 축제' */
-  title: string;
-  /** 이미지주소 @example 'http://tong.visitkorea.or.kr/cms/resource/88/3309588_image2_1.jpg' */
-  firstImage: string;
+  /** 리스트 테이블 기본 키 @example 81 */
+  Id: number;
+  /** 고유아이디 @example 2485661 */
+  ContentId: number;
+  /** 관광타입 @example 15 */
+  ContentType: number;
+  /** 제목 @example '양화진 근대사 뱃길탐방' */
+  Title: string;
   /** 시작일 @example '2024-06-26' */
-  startDate: string;
-  /** 마감일 @example '2024-07-14' */
-  endDate: string;
-  /** 지역 @example '경상남도 함안군 강주4길 16 ' */
-  venue: string;
-  /** 진행 중 상태 @example 'BEING' | 'UPCOMING' | 'ENDED' */
-  status: 'BEING' | 'UPCOMING' | 'ENDED';
+  StartDate: string;
+  /** 종료일 @example '2024-07-14' */
+  EndDate: string;
+  /** 이벤트 상태 @example 'BEING' | 'UPCOMING' | 'ENDED' */
+  Status: 'BEING' | 'UPCOMING' | 'ENDED';
+  /** 지역 + 군,구 @example '서울특별시 마포구' */
+  ShortAddres: string;
+  /** 지역코드 @example 1 */
+  AreaCode: number;
+  /** 군,구 코드 @example 13 */
+  CityCode: number;
+  /** 공공데이터에서 가져온 생성날짜 @example '2017-03-15 16:44' */
+  ExternalApiCreateDate: string;
+  /** 공공데이터에서 수정날짜 @example '2024-07-05 06:36' */
+  ExternalApiUpdateDate: string;
+  /** 생성날짜 @example '2024-09-05 21:31' */
+  CreateDate: string;
+  /** 수정날짜 @example '2024-09-05 21:31' */
+  UpdateDate: string;
+  /** 이미지주소 @example 'http://tong.visitkorea.or.kr/cms/resource/88/3309588_image2_1.jpg' */
+  ThumbnailImage: string;
 }
 
 /** SSR에서의 상대메세지를 받음  */
@@ -78,15 +92,18 @@ export default function Home(props: IHomeProps) {
       return;
     }
 
+    // 요청할 데이터 수
+    const limit = 15;
+
     try {
       // 데이터 호출
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACK_HOST}${process.env.NEXT_PUBLIC_BACK_HOST_LOCATION}/list?page=${page + 1}`
+        `${process.env.NEXT_PUBLIC_BACK_HOST}${process.env.NEXT_PUBLIC_BACK_HOST_LOCATION}?page=${page}&limit=${limit}`
       );
       const moreData = await res.json();
 
       // 기존 데이터 세팅 변경 moreData의 festivals만 선택해서 사용
-      setData((currentData) => [...currentData, ...moreData.festivals]);
+      setData((currentData) => [...currentData, ...moreData]);
 
       // 페이지 변경
       setPage((currentPage) => currentPage + 1);
@@ -117,21 +134,21 @@ export default function Home(props: IHomeProps) {
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
               {/* 각 이벤트 맵핑 */}
               {data.map((data, index) => (
-                <li key={`${index}-${data.contentId}`} className="relative border rounded-lg  p-4 ">
+                <li key={`${index}-${data.ContentId}`} className="relative border rounded-lg  p-4 ">
                   {/* 진행중인 이벤트일 경우 뱃지 표시자 붙음 */}
-                  {data.status == 'BEING' && (
+                  {data.Status == 'BEING' && (
                     <span className="badge badge-secondary absolute top-2 right-2 h-8 z-50 text-white">진행중</span>
                   )}
 
                   {/* 이벤트 정보 표시 */}
-                  <Link href={`/${data.contentId}`}>
+                  <Link href={`/${data.ContentId}`}>
                     <a>
                       {/* 축제 이미지 */}
                       <div className="relative w-full h-32 flex items-center justify-center">
-                        {isURL(data.firstImage) ? (
+                        {isURL(data.ThumbnailImage) ? (
                           <Image
-                            src={data.firstImage}
-                            alt={data.title}
+                            src={data.ThumbnailImage}
+                            alt={`${data.Title}의 이미지`}
                             layout="fill"
                             objectFit="contain"
                             loading="lazy"
@@ -143,13 +160,13 @@ export default function Home(props: IHomeProps) {
                       {/* 축제 정보 */}
                       <div className="mt-2">
                         {/* 축제 제목 */}
-                        <h2 className="text-lg font-semibold">{data.title}</h2>
+                        <h2 className="text-lg font-semibold">{data.Title}</h2>
                         {/* 축제 기간 */}
                         <p className="text-sm text-gray-600">
-                          {data.startDate} ~ {data.endDate}
+                          {data.StartDate} ~ {data.EndDate}
                         </p>
                         {/* 축제 주소 */}
-                        <p className="text-sm text-gray-600">{data.venue.split(' ').slice(0, 2).join(' ')}</p>
+                        <p className="text-sm text-gray-600">{data.ShortAddres}</p>
                       </div>
                     </a>
                   </Link>
@@ -178,7 +195,7 @@ export default function Home(props: IHomeProps) {
 
 export const getServerSideProps: GetServerSideProps<IHomeProps> = async (context) => {
   const page = 1; // 첫 페이지 설정
-  const size = 15; // 한 페이지당 데이터 양
+  const limit = 15; // 한 페이지당 데이터 양
 
   try {
     // 환경변수 가져오지 못할 때 에러 발생
@@ -191,26 +208,20 @@ export const getServerSideProps: GetServerSideProps<IHomeProps> = async (context
 
     // 데이터 호출
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACK_HOST}${process.env.NEXT_PUBLIC_BACK_HOST_LOCATION}/list?page=${page}&size=${size}`
+      `${process.env.NEXT_PUBLIC_BACK_HOST}${process.env.NEXT_PUBLIC_BACK_HOST_LOCATION}?page=${page}&limit=${limit}`
     );
-    // 데이터 파싱
-    const data = await res.json();
 
+    // 데이터 파싱
     /**
-     * data =  {
-     *            festivals : [...events],
-     *            first : boolean,
-     *            last : boolean
-     *         }
-     * 데이터 중 first: true,  last: false 데이터를 파싱하지 않는다
+     * data =  [{}, {}, {} ...]
      */
-    const events = data.festivals;
+    const data = await res.json();
 
     return {
       props: {
         success: true,
         message: '',
-        events: events,
+        events: data,
       },
     };
   } catch (error: any) {
