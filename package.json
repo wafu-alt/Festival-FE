@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "next lint",
-    "deploy:dev": "npm install && pm2 start ecosystem.config.js --env development",
-    "deploy": "npm install && pm2 start ecosystem.config.js --env production"
+    "deploy:dev": "npm install && npm run build && pm2 start ecosystem.config.js --env development",
+    "deploy": "npm install && npm run build && pm2 start ecosystem.config.js --env production"
   },
   "keywords": [],
   "author": "",
