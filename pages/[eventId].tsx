@@ -152,6 +152,16 @@ export const getServerSideProps: GetServerSideProps<IEventDetailProps> = async (
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACK_HOST}${process.env.NEXT_PUBLIC_BACK_HOST_LOCATION}/${eventId}`
     );
+
+    // 데이터 받기 실패
+    if (!res.ok) {
+      throw new Error('해당 상세 정보를 불러올 수 없습니다');
+    }
+
+    // 데이터 파싱
+    /**
+     * data = {}
+     */
     const data = await res.json();
 
     return {
