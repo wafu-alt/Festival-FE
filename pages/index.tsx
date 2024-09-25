@@ -58,8 +58,8 @@ export default function Home(props: IHomeProps) {
   const { success, message, events } = props;
   // 세팅 되는 이벤트 데이터
   const [data, setData] = useState(events);
-  // 이벤트 데이터 로딩 페이지 기본:1 무한로딩 할때마다 +1
-  const [page, setPage] = useState<number>(1);
+  // 이벤트 데이터 로딩 페이지 처음1 이후부터 호출해야하기에 기본:2 무한로딩 할때마다 +1
+  const [page, setPage] = useState<number>(2);
   // 이벤트 데이터 로딩 상태
   const [isLoading, setIsLoading] = useState(false);
 
