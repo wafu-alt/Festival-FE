@@ -18,6 +18,7 @@
    <img src="https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=nextdotjs&logoColor=#000000">
    <img src="https://img.shields.io/badge/typescript-black?style=for-the-badge&logo=typescript&logoColor=#3178C6">
    <img src="https://img.shields.io/badge/tailwindcss-black?style=for-the-badge&logo=tailwindcss&logoColor=#06B6D4">
+   <img src="https://img.shields.io/badge/npm-black?style=for-the-badge&logo=npm&logoColor=#CB3837">
 
 ### APP 개발 가이드
 
@@ -53,7 +54,7 @@
    npm run dev
    ```
 
-### 추가돼야 할 서비스
+### 추가돼야 할 개발
 
 - 이미지 호출 문제
 - 웹 화면 성능 테스트 후 Next.JS 14로 버젼 업
