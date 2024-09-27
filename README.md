@@ -10,6 +10,7 @@
 
 - 사용자에게 축제일정을 제공합니다. (현재 서울지역만 제공)
 - 축제 상세 정보를 제공합니다.
+- [백엔드](https://github.com/wafu-alt/Festival-BE)에서 API를 통해 데이터를 받습니다.
 - 해당 정보는 [공공데이터포털](https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15101578#/API%20%EB%AA%A9%EB%A1%9D/detailIntro1) ([한국관광공사](https://api.visitkorea.or.kr/#/hubTourSearch))제공 API를 활용하여 축제일정을 받아옵니다.
 - 향후 서비스를 계속 업그레이드 할 예정입니다.
 
@@ -67,3 +68,14 @@
   - TASK 수동 시작 조작 화면
   - LOG 조회 화면
   - CONTENT ID로 LIST, DETAIL 수동 조회 조작 화면
+
+### 해결한 경험
+
+- API에서 받아 온 이미지 에러메세지
+- tailwind css 포지션 적용안되는 문제
+- SVG 사용 문제
+- 잦은 이미지 로드로 생긴 문제
+- Next.JS에 카카오 맵 적용
+- [event Id]에서 쿼리 파싱 부분에 favicon.ico를 호출 문제
+- HTMLReactParser 문제
+- 배포 후 카카오 맵 로드 되지 않는 문제
