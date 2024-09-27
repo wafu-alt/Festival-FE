@@ -16,13 +16,7 @@
    npm install
    ```
 
-3. 개발모드 시작
-
-   ```sh
-   npm dev
-   ```
-
-4. .env 파일 생성
+3. .env 파일 생성
 
 - `../.env.development` 최상단에서 만들어야합니다
 
@@ -37,7 +31,7 @@
    NEXT_PUBLIC_BACK_HOST_LOCATION=위치
   ```
 
-5. 실행
+4. 실행
    ```sh
    npm run dev
    ```
