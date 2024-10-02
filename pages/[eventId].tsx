@@ -171,7 +171,7 @@ export default function EventDetail(props: IEventDetailProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<any> = async (context) => {
+export const getServerSideProps: GetServerSideProps<IEventDetailProps> = async (context) => {
   const { eventId } = context.query;
 
   try {
