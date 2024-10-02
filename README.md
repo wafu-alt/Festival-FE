@@ -71,11 +71,11 @@
 
 ### 해결한 경험
 
-- API에서 받아 온 이미지 에러메세지
-- tailwind css 포지션 적용안되는 문제
-- SVG 사용 문제
-- 잦은 이미지 로드로 생긴 문제
-- Next.JS에 카카오 맵 적용
-- [event Id]에서 쿼리 파싱 부분에 favicon.ico를 호출 문제
-- HTMLReactParser 문제
-- 배포 후 카카오 맵 로드 되지 않는 문제
+- [외부 이미지 URL 설정 오류 해결](https://blog.naver.com/dacapolin/223598602578)
+- [tailwind CSS 스타일 적용안되는 문제](https://blog.naver.com/dacapolin/223598626123)
+- [SVG 사용 문제](https://blog.naver.com/dacapolin/223598634955)
+- [잦은 이미지 로드로 생긴 문제](https://blog.naver.com/dacapolin/223598643407)
+- [Next.JS에 카카오 맵 적용](https://blog.naver.com/dacapolin/223598664909)
+- [[event Id]에서 getServerSideProps 에서 Favicon.ico호출 문제](https://blog.naver.com/dacapolin/223598686454)
+- [HTMLReactParser TypeError 문제](https://blog.naver.com/dacapolin/223604768430)
+- [배포 후 카카오 맵 로드 되지 않는 문제](https://blog.naver.com/dacapolin/223604772828)
