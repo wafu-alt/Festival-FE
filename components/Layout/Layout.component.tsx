@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactNode, useCallback } from 'react';
 import Link from 'next/link';
 import TopArrowSVG from '../../public/images/top_arrow.svg';
@@ -29,9 +31,7 @@ export default function Layout(props: ILayoutProps) {
           {/* 헤더 네비게이션 영역 */}
           <nav className="navbar container mx-auto flex justify-between  bg-base-100">
             <Link href="/">
-              <h1>
-                <a className="btn btn-ghost text-xl font-bold ">Festival Moa</a>
-              </h1>
+              <h1 className="btn btn-ghost text-xl font-bold ">Festival Moa</h1>
             </Link>
           </nav>
         </header>
@@ -50,9 +50,7 @@ export default function Layout(props: ILayoutProps) {
           <div className="container mx-auto p-2">
             <p>해당 자료 출처는 대한민국 공공데이터포털입니다</p>
 
-            <Link href={'https://www.data.go.kr/data/15013104/standard.do#/tab_layer_open'}>
-              <a>바로가기</a>
-            </Link>
+            <Link href="https://www.data.go.kr/data/15013104/standard.do#/tab_layer_open">바로가기</Link>
           </div>
         </footer>
       </div>
