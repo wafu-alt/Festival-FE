@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
 
   webpack(config) {
     config.module.rules.push({
@@ -19,6 +20,15 @@ module.exports = {
     ];
   },
   images: {
-    domains: ['tong.visitkorea.or.kr'], // 가져올 이미지 도메인 추가
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'tong.visitkorea.or.kr',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
+
+export default nextConfig;
