@@ -21,7 +21,7 @@
 module.exports = {
   apps: [
     {
-      name: 'FesMoa-app', // 애플리케이션 이름
+      name: 'fesmoa-app', // 애플리케이션 이름
       cwd: './', // 현재 디렉토리
       script: 'node_modules/next/dist/bin/next', // Next.js 실행 스크립트 경로
       args: 'start -p 3000', // 실행 인수 (포트 번호 포함)
