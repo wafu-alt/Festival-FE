@@ -16,7 +16,7 @@ export const festivalService = {
     }
 
     const res = await fetch(`${backHost}${backLocation}?page=${page}&limit=${limit}`, {
-      next: { revalidate: 0 }, // 캐시 비활성화
+      next: { revalidate: 60 * 60 * 6 }, // 60초 * 60분 * 6시간 = 21600초
     });
 
     // 데이터 받기 실패

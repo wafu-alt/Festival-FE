@@ -15,9 +15,7 @@ export const festivalDetailService = {
       throw new Error('환경 변수가 설정되지 않았습니다.');
     }
 
-    const res = await fetch(`${backHost}${backLocation}/${eventId}`, {
-      next: { revalidate: 0 }, // 캐시 비활성화
-    });
+    const res = await fetch(`${backHost}${backLocation}/${eventId}`);
 
     // 데이터 받기 실패
     if (!res.ok) {
